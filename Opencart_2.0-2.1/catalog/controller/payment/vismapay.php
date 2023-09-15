@@ -31,7 +31,7 @@ class ControllerPaymentVismapay extends Controller {
         
         $data['button_pay'] = $this->language->get('button_pay');
     
-	    $data['error_create_payment'] = $this->language->get('error_create_payment');
+	$data['error_create_payment'] = $this->language->get('error_create_payment');
         
         $data['action'] = $this->url->link('payment/vismapay','action=check-payment-status&token=', 'SSL');
         $data['payment_form'] = false;

@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']        = 'Vismapay';
+$_['heading_title']       = 'Vismapay';
 
 // Text
 $_['text_edit']           = 'Muokkaa';

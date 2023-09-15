@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_title']       = 'Vismapay';
+$_['text_title']        = 'Vismapay';
 
 $_['text_card_payment'] = 'Korttimaksu';
 $_['text_success']     = 'Maksu suoritettiin onnistuneesti.';

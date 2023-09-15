@@ -1,16 +1,16 @@
 <?php
-class ControllerPaymentVismapay extends Controller {
+class ControllerPaymentvismapay extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('payment/Vismapay');
+		$this->load->language('payment/vismapay');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/setting');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('Vismapay', $this->request->post);
+			$this->model_setting_setting->editSetting('vismapay', $this->request->post);
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -76,29 +76,29 @@ class ControllerPaymentVismapay extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('payment/Vismapay', 'token=' . $this->session->data['token'], 'SSL')
+			'href' => $this->url->link('payment/vismapay', 'token=' . $this->session->data['token'], 'SSL')
 		);
 
-		$data['action'] = $this->url->link('payment/Vismapay', 'token=' . $this->session->data['token'], 'SSL');
+		$data['action'] = $this->url->link('payment/vismapay', 'token=' . $this->session->data['token'], 'SSL');
 		$data['clear'] = $this->url->link('payment/paytrail/clear','token=' . $this->session->data['token'],'SSL');
 		$data['cancel'] = $this->url->link('extension/payment', 'token=' . $this->session->data['token'], 'SSL');
 
-		if (isset($this->request->post['Vismapay_api_key'])) {
-			$data['Vismapay_api_key'] = $this->request->post['Vismapay_api_key'];
+		if (isset($this->request->post['vismapay_api_key'])) {
+			$data['vismapay_api_key'] = $this->request->post['vismapay_api_key'];
 		} else {
-			$data['Vismapay_api_key'] = $this->config->get('Vismapay_api_key');
+			$data['vismapay_api_key'] = $this->config->get('vismapay_api_key');
 		}
 
-		if (isset($this->request->post['Vismapay_order_status_id'])) {
-			$data['Vismapay_order_status_id'] = $this->request->post['Vismapay_order_status_id'];
+		if (isset($this->request->post['vismapay_order_status_id'])) {
+			$data['vismapay_order_status_id'] = $this->request->post['vismapay_order_status_id'];
 		} else {
-			$data['Vismapay_order_status_id'] = $this->config->get('Vismapay_order_status_id');
+			$data['vismapay_order_status_id'] = $this->config->get('vismapay_order_status_id');
 		}
 
-		if (isset($this->request->post['Vismapay_failed_status_id'])) {
-			$data['Vismapay_failed_status_id'] = $this->request->post['Vismapay_failed_status_id'];
+		if (isset($this->request->post['vismapay_failed_status_id'])) {
+			$data['vismapay_failed_status_id'] = $this->request->post['vismapay_failed_status_id'];
 		} else {
-			$data['Vismapay_failed_status_id'] = $this->config->get('Vismapay_failed_status_id');
+			$data['vismapay_failed_status_id'] = $this->config->get('vismapay_failed_status_id');
 		}
 
 
@@ -106,59 +106,59 @@ class ControllerPaymentVismapay extends Controller {
 
 		$data['order_statuses'] = $this->model_localisation_order_status->getOrderStatuses();
 
-		if (isset($this->request->post['Vismapay_geo_zone_id'])) {
-			$data['Vismapay_geo_zone_id'] = $this->request->post['Vismapay_geo_zone_id'];
+		if (isset($this->request->post['vismapay_geo_zone_id'])) {
+			$data['vismapay_geo_zone_id'] = $this->request->post['vismapay_geo_zone_id'];
 		} else {
-			$data['Vismapay_geo_zone_id'] = $this->config->get('Vismapay_geo_zone_id');
+			$data['vismapay_geo_zone_id'] = $this->config->get('vismapay_geo_zone_id');
 		}
 
 		$this->load->model('localisation/geo_zone');
 
 		$data['geo_zones'] = $this->model_localisation_geo_zone->getGeoZones();
 
-		if (isset($this->request->post['Vismapay_status'])) {
-			$data['Vismapay_status'] = $this->request->post['Vismapay_status'];
+		if (isset($this->request->post['vismapay_status'])) {
+			$data['vismapay_status'] = $this->request->post['vismapay_status'];
 		} else {
-			$data['Vismapay_status'] = $this->config->get('Vismapay_status');
+			$data['vismapay_status'] = $this->config->get('vismapay_status');
 		}
 
-		if (isset($this->request->post['Vismapay_private_key'])) {
-			$data['Vismapay_private_key'] = $this->request->post['Vismapay_private_key'];
+		if (isset($this->request->post['vismapay_private_key'])) {
+			$data['vismapay_private_key'] = $this->request->post['vismapay_private_key'];
 		} else {
-			$data['Vismapay_private_key'] = $this->config->get('Vismapay_private_key');
+			$data['vismapay_private_key'] = $this->config->get('vismapay_private_key');
 		}
 
-		if (isset($this->request->post['Vismapay_banks'])) {
-			$data['Vismapay_banks'] = $this->request->post['Vismapay_banks'];
+		if (isset($this->request->post['vismapay_banks'])) {
+			$data['vismapay_banks'] = $this->request->post['vismapay_banks'];
 		} else {
-			$data['Vismapay_banks'] = $this->config->get('Vismapay_banks');
+			$data['vismapay_banks'] = $this->config->get('vismapay_banks');
 		}
 
-		if (isset($this->request->post['Vismapay_cards'])) {
-			$data['Vismapay_cards'] = $this->request->post['Vismapay_cards'];
+		if (isset($this->request->post['vismapay_cards'])) {
+			$data['vismapay_cards'] = $this->request->post['vismapay_cards'];
 		} else {
-			$data['Vismapay_cards'] = $this->config->get('Vismapay_cards');
+			$data['vismapay_cards'] = $this->config->get('vismapay_cards');
 		}
 
-		if (isset($this->request->post['Vismapay_invoice'])) {
-			$data['Vismapay_invoice'] = $this->request->post['Vismapay_invoice'];
+		if (isset($this->request->post['vismapay_invoice'])) {
+			$data['vismapay_invoice'] = $this->request->post['vismapay_invoice'];
 		} else {
-			$data['Vismapay_invoice'] = $this->config->get('Vismapay_invoice');
+			$data['vismapay_invoice'] = $this->config->get('vismapay_invoice');
 		}
 
-		if (isset($this->request->post['Vismapay_arvato'])) {
-			$data['Vismapay_arvato'] = $this->request->post['Vismapay_arvato'];
+		if (isset($this->request->post['vismapay_arvato'])) {
+			$data['vismapay_arvato'] = $this->request->post['vismapay_arvato'];
 		} else {
-			$data['Vismapay_arvato'] = $this->config->get('Vismapay_arvato');
+			$data['vismapay_arvato'] = $this->config->get('vismapay_arvato');
 		}
 
-		if (isset($this->request->post['Vismapay_sort_order'])) {
-			$data['Vismapay_sort_order'] = $this->request->post['Vismapay_sort_order'];
+		if (isset($this->request->post['vismapay_sort_order'])) {
+			$data['vismapay_sort_order'] = $this->request->post['vismapay_sort_order'];
 		} else {
-			$data['Vismapay_sort_order'] = $this->config->get('Vismapay_sort_order');
+			$data['vismapay_sort_order'] = $this->config->get('vismapay_sort_order');
 		}
 
-		$file = DIR_LOGS . 'Vismapay.log';
+		$file = DIR_LOGS . 'vismapay.log';
 
 		if (file_exists($file)) {
 			$data['log'] = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
@@ -170,13 +170,13 @@ class ControllerPaymentVismapay extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('payment/Vismapay.tpl', $data));
+		$this->response->setOutput($this->load->view('payment/vismapay.tpl', $data));
 	}
 
 	public function clear() {
-		$this->language->load('payment/Vismapay');
+		$this->language->load('payment/vismapay');
 
-		$file = DIR_LOGS . 'Vismapay.log';
+		$file = DIR_LOGS . 'vismapay.log';
         if (file_exists($file) && $this->validateClear()) {
 		   $handle = fopen($file, 'w+'); 
 
@@ -185,11 +185,11 @@ class ControllerPaymentVismapay extends Controller {
 		    $this->session->data['success'] = $this->language->get('text_clear_success');
 	   }
 
-		$this->response->redirect($this->url->link('payment/Vismapay', 'token=' . $this->session->data['token'], true));		
+		$this->response->redirect($this->url->link('payment/vismapay', 'token=' . $this->session->data['token'], true));		
 	}
 
 	protected function validateClear() {
-		if (!$this->user->hasPermission('modify', 'payment/Vismapay')) {
+		if (!$this->user->hasPermission('modify', 'payment/vismapay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -197,15 +197,15 @@ class ControllerPaymentVismapay extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'payment/Vismapay')) {
+		if (!$this->user->hasPermission('modify', 'payment/vismapay')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if (!$this->request->post['Vismapay_api_key']) {
+		if (!$this->request->post['vismapay_api_key']) {
 			$this->error['api_key'] = $this->language->get('error_api_key');
 		}
 
-		if (!$this->request->post['Vismapay_private_key']) {
+		if (!$this->request->post['vismapay_private_key']) {
 			$this->error['private_key'] = $this->language->get('error_private_key');
 		}
 
